@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+body{
+    color: white;
+    background-color: black;
+}
+
+* {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.goldStar{
+    color: #ffff66;
+}
+.silverStar{
+    color: #9999cc;
+}
+.incompleteStar{
+    color: black;
+}
+.mayo {
+    color: #1a743a;
+}
+.jm {
+    color: #cb2026;
+}
+.century {
+    color: #20385e;
+}
+.lincoln{
+    color: #3d93d3;
+}
+.ctech {
+    color: #fdb116;
+}
+.kellogg {
+    color: #20385e;
+}
+
+title{
+    display: block;
+    margin-bottom: 5px;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+person {
+    display: block;
+    white-space:pre;
+}
+
+section {
+    margin-top: 1.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
