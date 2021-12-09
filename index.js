@@ -1,10 +1,10 @@
-const REPLIT = False
+const REPLIT = false
 const MAX_STARS = 25
 const STAR = "★"
 const FORMAT = "%PLACE) %SCORE %STARS %NAME (%SCHOOL)"
-const PATHTOINDIVIDUAL = REPLIT?"/data.json":"https://saturn.rochesterschools.org/python/AOCbot/data_file.json"
-const PATHTOTEAMS = REPLIT?"/data_teams.json":"https://saturn.rochesterschools.org/python/AOCbot/team_file.json"
-const PATHTOCSV = REPLIT?"/csv.json":"https://saturn.rochesterschools.org/python/AOCbot/users.json"
+const PATHTOINDIVIDUAL = "https://saturn.rochesterschools.org/python/AOCbot/data_file.json"
+const PATHTOTEAMS = "https://saturn.rochesterschools.org/python/AOCbot/team_file.json"
+const PATHTOCSV = "https://saturn.rochesterschools.org/python/AOCbot/users.json"
 
 var schools = {}
 var schoolsParticipation = {}
