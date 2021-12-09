@@ -1,4 +1,4 @@
-const REPLIT = true
+const REPLIT = false
 const MAX_STARS = 25
 const STAR = "★"
 const FORMAT = "%PLACE) %SCORE %STARS %NAME (%SCHOOL)"
