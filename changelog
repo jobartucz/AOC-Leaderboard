@@ -1,0 +1,10 @@
+12/10/21 - KennyH
+    - all numbers now start at 1 instead of 0
+    - ran everything through a prettier
+    - included try/catch for each section
+    - hopefully made this more readable
+    - schools now sorted by stars
+    - statistics section created
+        - total particpiants 
+        - total stars earned
+        - time left countdown

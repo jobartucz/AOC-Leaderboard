@@ -47,7 +47,7 @@ main {
     align-items: center;
 }
 
-person {
+person, stat {
     display: block;
     white-space:pre;
 }
