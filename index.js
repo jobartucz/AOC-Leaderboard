@@ -56,7 +56,7 @@ window.addEventListener("load", async (event)=>{
     var res = await fetch(PATHTOTEAMS)
     var {members} = await res.json()
     members = Object.values(members)
-    members.sort((a, b) => b.local_score - a.local_score)
+    members.sort((a, b) => b.stars - a.stars || b.local_score - a.local_score)
 
     var highestGroups = {}
 
