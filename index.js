@@ -2,9 +2,9 @@ const REPLIT = false
 const MAX_STARS = 25
 const STAR = "★"
 const FORMAT = "%PLACE) %SCORE %STARS %NAME (%SCHOOL)"
-const PATHTOINDIVIDUAL = "/python/AOCbot/data_file.json"
-const PATHTOTEAMS = "/python/AOCbot/team_file.json"
-const PATHTOCSV = "/python/AOCbot/users.json"
+const PATHTOINDIVIDUAL = "https://saturn.rochesterschools.org/python/AOCbot/data_file.json"
+const PATHTOTEAMS = "https://saturn.rochesterschools.org/python/AOCbot/team_file.json"
+const PATHTOCSV = "https://saturn.rochesterschools.org/python/AOCbot/users.json"
 
 var schools = {}
 var schoolsParticipation = {}
@@ -18,7 +18,7 @@ window.addEventListener("load", async (event)=>{
     var res = await fetch(PATHTOINDIVIDUAL)
     var {members} = await res.json()
     members = Object.values(members)
-    members.sort((a, b) => b.local_score - a.local_score)
+    members.sort((a, b) => b.stars - a.stars || b.local_score - a.local_score)
 
     const INVIDIUALGROUP = document.querySelector(`section[name="individual"]`).querySelector("div")
 
