@@ -271,7 +271,9 @@ function createPerson({ name, place, score, stars, school }) {
 
     const secondHalf = document.createElement('span');
     secondHalf.innerText = ' ' + name + ' (' + school + ')';
-    secondHalf.classList.add(school);
+    if(school){
+        secondHalf.classList.add(school);
+    }
 
     person.appendChild(secondHalf);
 
