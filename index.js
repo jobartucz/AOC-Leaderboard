@@ -89,7 +89,7 @@ window.addEventListener('load', async event => {
         Easter Egg
     */
 
-    const mainTitle = document.querySelector('title');
+    const mainTitle = document.querySelector('h2');
     const title = mainTitle.innerText;
     mainTitle.addEventListener('click', () => {
         if (mainTitle.innerText != title) return;

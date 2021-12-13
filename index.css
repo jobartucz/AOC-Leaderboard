@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
-body{
+body {
     color: white;
     background-color: black;
 }
@@ -9,47 +8,56 @@ body{
     font-family: 'Source Code Pro', monospace;
 }
 
-.goldStar{
+.goldStar {
     color: #ffff66;
 }
-.silverStar{
+
+.silverStar {
     color: #9999cc;
 }
-.incompleteStar{
-    color: black;
+
+.incompleteStar {
+    color: transparent;
 }
+
 .mayo {
     color: green;
 }
+
 .jm {
     color: #cb2026;
 }
+
 .century {
     color: blue;
 }
-.lincoln{
+
+.lincoln {
     color: #3d93d3;
 }
+
 .ctech {
     color: #fdb116;
 }
+
 .kellogg {
     color: #345fa3;
 }
 
-title{
-    display: block;
+h2 {
     margin-bottom: 5px;
 }
+
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-person, stat {
+person,
+stat {
     display: block;
-    white-space:pre;
+    white-space: pre;
 }
 
 section {
