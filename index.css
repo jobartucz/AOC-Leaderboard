@@ -1,55 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
-body{
+body {
     color: white;
-    background-color: black;
-}
-
-* {
+    background: url("/snow.jpg") no-repeat center center fixed, #000000;
+    background-size: cover;
     font-family: 'Source Code Pro', monospace;
 }
 
-.goldStar{
-    color: #ffff66;
-}
-.silverStar{
-    color: #9999cc;
-}
-.incompleteStar{
-    color: black;
-}
-.mayo {
-    color: green;
-}
-.jm {
-    color: #cb2026;
-}
-.century {
-    color: blue;
-}
-.lincoln{
-    color: #3d93d3;
-}
-.ctech {
-    color: #fdb116;
-}
-.kellogg {
-    color: #345fa3;
+main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.8);
 }
 
-title{
-    display: block;
-    margin-bottom: 5px;
+h2 {
+    font-weight: bolder;
+    margin: 8px 0;
+
 }
+
+section {
+    margin: 16px 0;
+}
+
+.goldStar {
+    color: #ffff66;
+}
+
+.silverStar {
+    color: #9999cc;
+}
+
+.incompleteStar {
+    color: transparent;
+    user-select: none;
+}
+
+
+.Century {
+    color: #837ec5;
+    text-shadow: 0 0 4px #837ec5;
+}
+
+.Kellogg {
+    color: #0d78bb;
+    text-shadow: 0 0 4px #0d78bb;
+}
+
+.Lincoln {
+    color: #64bbed;
+    text-shadow: 0 0 4px #64bbed;
+}
+
+.JM {
+    color: #cb2026;
+    text-shadow: 0 0 4px #cb2026;
+}
+
+.Mayo {
+    color: #1a743a;
+    text-shadow: 0 0 4px #1a743a;
+}
+
+.CTECH {
+    color: #ffc01f;
+    text-shadow: 0 0 4px #ffc01f;
+}
+
+
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-person, stat {
+.person, .stat {
     display: block;
-    white-space:pre;
+    white-space: pre;
+    padding: 4px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.person:hover, .stat:hover {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 section {

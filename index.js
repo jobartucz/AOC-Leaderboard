@@ -10,17 +10,17 @@ const PATHTOTEAMS = 'https://saturn.rochesterschools.org/python/AOCbot/team_file
 const PATHTOCSV = 'https://saturn.rochesterschools.org/python/AOCbot/users.json';
 
 /*
-    Var Initlilzation
+    let Initlilzation
 */
 
-var schoolData = {};
-var CSVData;
+let schoolData = {};
+let CSVData;
 
 window.addEventListener('load', async event => {
     /*
         No try/catch here, site is not functional without this data.
     */
-    var res = await fetch(PATHTOCSV);
+    let res = await fetch(PATHTOCSV);
     CSVData = await res.json();
 
     /*
@@ -28,8 +28,8 @@ window.addEventListener('load', async event => {
     */
 
     try {
-        var res = await fetch(PATHTOINDIVIDUALDATA); //get individual data
-        var { members } = await res.json(); //parse as json
+        let res = await fetch(PATHTOINDIVIDUALDATA); //get individual data
+        let { members } = await res.json(); //parse as json
         members = Object.values(members); // turn into array
         members.sort((a, b) => b.stars - a.stars || b.local_score - a.local_score); // sort by amount of stars, then by local score
         //try to find the section we are going to put this data in
@@ -46,8 +46,8 @@ window.addEventListener('load', async event => {
     */
 
     try {
-        var res = await fetch(PATHTOTEAMS); //get team data
-        var { members } = await res.json(); //parse as json
+        let res = await fetch(PATHTOTEAMS); //get team data
+        let { members } = await res.json(); //parse as json
         members = Object.values(members); //object to array
         members.sort((a, b) => b.stars - a.stars || b.local_score - a.local_score); //sort by star count, then by local score
         const teamSectionElement = document
@@ -66,7 +66,7 @@ window.addEventListener('load', async event => {
         const schoolSectionElement = document
             .querySelector(`section[name="schools"]`)
             .querySelector('div');
-        var schoolNames = Object.keys(schoolData);
+        let schoolNames = Object.keys(schoolData);
         schoolNames.sort((a, b) => schoolData[b].stars - schoolData[a].stars);
         renderSchoolSection(schoolNames, schoolSectionElement);
     } catch (e) {
@@ -94,8 +94,8 @@ function renderIndividualSection(members, sectionElement) {
     for (const [index, person] of Object.entries(members)) {
         if (person.stars <= 0) continue;
         const AOCUsername = person.name;
-        var name = AOCUsername;
-        var school = '?';
+        let name = AOCUsername;
+        let school = '?';
         if (CSVData[AOCUsername]) {
             name = CSVData[AOCUsername][`What is your first and last name?`];
             school = CSVData[AOCUsername][`Which school do you attend?`].trim();
@@ -126,11 +126,10 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const schoolName = schoolNames[i];
         const starCount = schoolData[schoolName].stars;
         const playerCount = schoolData[schoolName].participants;
-        const school = document.createElement('person');
-        school.classList.add(schoolName);
+        const school = document.createElement('div');
+        school.classList.add(schoolName, "person");
         school.innerText =
-            +i +
-            1 +
+            + (i + 1) +
             ') ' +
             schoolName +
             ' Total Stars: ' +
@@ -142,14 +141,14 @@ function renderSchoolSection(schoolNames, sectionElement) {
 }
 
 function renderTeamSection(members, sectionElement) {
-    var highestGroups = {};
-    var renderedTeams = 0;
+    let highestGroups = {};
+    let renderedTeams = 0;
 
     for (person of members) {
         if (person.stars <= 0) continue;
         const AOCUsername = person.name;
-        var name = AOCUsername;
-        var skhools = [];
+        let name = AOCUsername;
+        let skhools = [];
 
         if (CSVData[AOCUsername]) {
             if (
@@ -194,21 +193,23 @@ function renderStats(sectionElement) {
     /*
         Data Collection
     */
-    var schools = Object.values(schoolData);
-    var totalParticipants = 0;
-    var totalStars = 0;
+    let schools = Object.values(schoolData);
+    let totalParticipants = 0;
+    let totalStars = 0;
     for (school of schools) totalParticipants += school.participants;
     for (school of schools) totalStars += school.stars;
     /*
         Render Data
     */
     //total players
-    const totalPlayersElement = document.createElement('stat');
+    const totalPlayersElement = document.createElement('div');
     totalPlayersElement.innerText = 'Total Participants: ' + totalParticipants;
+    totalPlayersElement.classList.add("stat");
     sectionElement.appendChild(totalPlayersElement);
     //total stars
-    const totalStarsElement = document.createElement('stat');
+    const totalStarsElement = document.createElement('div');
     totalStarsElement.innerText = 'Total Stars: ' + totalStars;
+    totalStarsElement.classList.add("stat");
     sectionElement.appendChild(totalStarsElement);
 
     /*
@@ -216,20 +217,21 @@ function renderStats(sectionElement) {
     */
     const countDownDate = new Date('Jan 1, 2022 0:0:01').getTime();
 
-    const TTE = document.createElement('person');
+    const TTE = document.createElement('div');
     TTE.setAttribute('id', 'TTE');
-    var x = setInterval(function() {
+    TTE.classList.add("person");
+    function init() {
         // Get today's date and time
-        var now = new Date().getTime();
+        let now = new Date().getTime();
 
         // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+        let distance = countDownDate - now;
 
         // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-        var minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
-        var seconds = Math.floor(distance % (1000 * 60) / 1000);
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+        let minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
+        let seconds = Math.floor(distance % (1000 * 60) / 1000);
 
         // Output the result in an element with id="clock"
         TTE.innerHTML =
@@ -240,17 +242,22 @@ function renderStats(sectionElement) {
             clearInterval(x);
             TTE.innerHTML = 'EXPIRED';
         }
-    }, 1000);
-    TTE.innerText = 'Time until end: LOADING';
+    }
+
+    let x = setInterval(init, 1000);
+
+    init();
+    
     sectionElement.appendChild(TTE);
 }
 
 function createPerson({ name, place, score, stars, school }) {
-    const person = document.createElement('person');
-    const spaces = 3 - `${place}`.length;
-    const scorespaces = 5 - `${score}`.length;
+    const person = document.createElement('div');
+    person.classList.add("person");
+    const spaces = 2 - `${place}`.length;
+    const scorespaces = 4 - `${score}`.length;
     const firstHalf = document.createTextNode(
-        ' '.repeat(spaces) + place + ')' + ' '.repeat(scorespaces) + score + ' '
+        '0'.repeat(spaces) + place + ') ' + '0'.repeat(scorespaces) + score + ' '
     );
     person.appendChild(firstHalf);
 
