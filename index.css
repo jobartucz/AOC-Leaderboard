@@ -17,10 +17,16 @@ main {
     background: rgba(0, 0, 0, 0.8);
 }
 
+h1 {
+    font-weight: bolder;
+    color: rgb(117, 193, 255);
+    text-shadow: 0 0 8px rgb(117, 193, 255);
+}
+
 h2 {
     font-weight: bolder;
     margin: 8px 0;
-
+    text-shadow: 0 0 4px rgb(255, 255, 255);
 }
 
 section {
@@ -84,6 +90,7 @@ main {
     padding: 4px;
     border-radius: 8px;
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 .person:hover, .stat:hover {

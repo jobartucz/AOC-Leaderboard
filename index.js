@@ -122,6 +122,7 @@ function renderIndividualSection(members, sectionElement) {
 }
 
 function renderSchoolSection(schoolNames, sectionElement) {
+    const maxSchool = schoolNames.sort((a, b) => b.length - a.length)[0].length;
     for (i = 0; i < schoolNames.length; i++) {
         const schoolName = schoolNames[i];
         const starCount = schoolData[schoolName].stars;
@@ -129,13 +130,7 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const school = document.createElement('div');
         school.classList.add(schoolName, "person");
         school.innerText =
-            + (i + 1) +
-            ') ' +
-            schoolName +
-            ' Total Stars: ' +
-            starCount +
-            ', Total Participants: ' +
-            playerCount;
+            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, "0")}${STAR} Participants: ${playerCount.toString().padStart(2, "0")}`;
         sectionElement.appendChild(school);
     }
 }
