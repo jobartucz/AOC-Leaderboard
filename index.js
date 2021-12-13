@@ -97,6 +97,12 @@ function renderIndividualSection(members, sectionElement) {
         var name = AOCUsername;
         var school = '?';
         if (CSVData[AOCUsername]) {
+            if (
+                CSVData[AOCUsername][
+                    `Are you participating as part of a team or as an individual?`
+                ] == 'Team'
+            )
+                continue;
             name = CSVData[AOCUsername][`What is your first and last name?`];
             school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
@@ -149,7 +155,8 @@ function renderTeamSection(members, sectionElement) {
         if (person.stars <= 0) continue;
         const AOCUsername = person.name;
         var name = AOCUsername;
-        var skhools = [];
+        var schools = {};
+        var totalTeamMembers = 0;
 
         if (CSVData[AOCUsername]) {
             if (
@@ -158,7 +165,7 @@ function renderTeamSection(members, sectionElement) {
                 ] != 'Team'
             )
                 continue;
-            const school = CSVData[AOCUsername][`Which school do you attend?`].trim();
+            var school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
 
                 Statistics
@@ -167,23 +174,44 @@ function renderTeamSection(members, sectionElement) {
             if (!schoolData[school]) schoolData[school] = {}; // ensure this school's object exists
             if (!schoolData[school].participants) schoolData[school].participants = 0; //ensure this school's participant count exists
             schoolData[school].participants++; //count
-            if (!schoolData[school].stars) schoolData[school].stars = 0; //ensure this school's star count exists
-            schoolData[school].stars += person.stars;
             name = CSVData[AOCUsername][`What is your team name?`].trim();
+
             if (highestGroups[name]) continue;
+            /*
+                Code past this point is only executed if this is the first person we have found in this group
+            */
+
             highestGroups[name] = true;
             for (participant of Object.values(CSVData)) {
+                //shut up
                 if (participant[`What is your team name?`].trim() == name) {
-                    skhools.push(school);
+                    school = participant[`Which school do you attend?`].trim();
+                    schools[school] = (schools[school] ? schools[school] : 0) + 1;
+                    totalTeamMembers += 1;
                 }
             }
         }
+        /*
+            add stars to school
+        */
+        var schoolList = [];
+        for (schoolName of Object.keys(schools)) {
+            const numberOfPeople = schools[schoolName];
+            for (i = 0; i < numberOfPeople; i++) {
+                schoolList.push(schoolName);
+            }
+            const ratio = numberOfPeople / totalTeamMembers;
+            if (!schoolData[schoolName].stars) schoolData[schoolName].stars = 0; //ensure this school's star count exists
+            schoolData[schoolName].stars += person.stars * ratio;
+        }
+        console.log(schools);
+
         const element = createPerson({
             name: name,
             place: renderedTeams + 1,
             score: person.local_score,
             stars: person.stars,
-            school: skhools.join('/')
+            school: schoolList.join('/')
         });
         renderedTeams++;
         sectionElement.appendChild(element);
@@ -271,7 +299,7 @@ function createPerson({ name, place, score, stars, school }) {
 
     const secondHalf = document.createElement('span');
     secondHalf.innerText = ' ' + name + ' (' + school + ')';
-    if(school){
+    if (school) {
         secondHalf.classList.add(school);
     }
 
