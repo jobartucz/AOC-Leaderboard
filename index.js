@@ -84,6 +84,20 @@ window.addEventListener('load', async event => {
     } catch (e) {
         console.log('Statistics Section failed to render\n', e);
     }
+
+    /*
+        Easter Egg
+    */
+
+    const mainTitle = document.querySelector('title');
+    const title = mainTitle.innerText;
+    mainTitle.addEventListener('click', () => {
+        if (mainTitle.innerText != title) return;
+        mainTitle.innerText = 'Made by github.com/KennyHarrer 👺';
+        setTimeout(() => {
+            mainTitle.innerText = title;
+        }, 2000);
+    });
 });
 
 /*
