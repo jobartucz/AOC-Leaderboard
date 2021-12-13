@@ -121,7 +121,7 @@ function renderIndividualSection(members, sectionElement) {
             place: +index + 1, //cast index to number, arrays start at 0 add 1
             score: person.local_score,
             stars: person.stars,
-            school: school
+            school: school,
         });
         sectionElement.appendChild(element);
     }
@@ -133,16 +133,18 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const starCount = schoolData[schoolName].stars;
         const playerCount = schoolData[schoolName].participants;
         const school = document.createElement('person');
+        const efficiency = (starCount / playerCount).toFixed(1);
         school.classList.add(schoolName);
-        school.innerText =
-            +i +
+        school.innerText = +i +
             1 +
             ') ' +
             schoolName +
             ' Total Stars: ' +
             starCount +
             ', Total Participants: ' +
-            playerCount;
+            playerCount +
+            ', Efficiency: ' +
+            efficiency;
         sectionElement.appendChild(school);
     }
 }
@@ -211,7 +213,7 @@ function renderTeamSection(members, sectionElement) {
             place: renderedTeams + 1,
             score: person.local_score,
             stars: person.stars,
-            school: schoolList.join('/')
+            school: schoolList.join('/'),
         });
         renderedTeams++;
         sectionElement.appendChild(element);
