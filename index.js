@@ -233,7 +233,8 @@ function renderTeamSection(members, sectionElement) {
             school: schoolList.join('/')
         });
         const spans = element.querySelectorAll('span');
-        spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});`;
+        spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});
+text-shadow: 0 0 4px rgb(${mixRGB(colorList)})`;
         renderedTeams++;
         sectionElement.appendChild(element);
     }
