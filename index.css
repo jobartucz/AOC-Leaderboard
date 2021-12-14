@@ -21,7 +21,7 @@ h1 {
     font-size: 15px;
     font-weight: bolder;
     color: rgb(117, 193, 255);
-    text-shadow: 0 0 8px rgb(117, 193, 255);
+    text-shadow: 0 0 8px #000;
 }
 
 h2 {
@@ -51,32 +51,32 @@ section {
 
 .Century {
     color: #837ec5;
-    text-shadow: 0 0 4px #837ec5;
+    /* text-shadow: 0 0 4px #837ec5; */
 }
 
 .Kellogg {
     color: #0d78bb;
-    text-shadow: 0 0 4px #0d78bb;
+    /* text-shadow: 0 0 4px #0d78bb; */
 }
 
 .Lincoln {
     color: #64bbed;
-    text-shadow: 0 0 4px #64bbed;
+    /* text-shadow: 0 0 4px #64bbed; */
 }
 
 .JM {
     color: #cb2026;
-    text-shadow: 0 0 4px #cb2026;
+    /* text-shadow: 0 0 4px #cb2026; */
 }
 
 .Mayo {
     color: #1a743a;
-    text-shadow: 0 0 4px #1a743a;
+    /* text-shadow: 0 0 4px #1a743a; */
 }
 
 .CTECH {
     color: #ffc01f;
-    text-shadow: 0 0 4px #ffc01f;
+    /* text-shadow: 0 0 4px #ffc01f; */
 }
 
 

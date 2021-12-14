@@ -9,12 +9,12 @@ const PATHTOINDIVIDUALDATA = 'https://saturn.rochesterschools.org/python/AOCbot/
 const PATHTOTEAMS = 'https://saturn.rochesterschools.org/python/AOCbot/team_file.json';
 const PATHTOCSV = 'https://saturn.rochesterschools.org/python/AOCbot/users.json';
 const SCHOOLTOCOLOR = {
-    mayo: '00ff00',
+    mayo: '1a743a',
     jm: 'cb2026',
-    century: '0000ff',
-    lincoln: '3d93d3',
-    ctech: 'fdb116',
-    kellogg: '345fa3'
+    century: '837ec5',
+    lincoln: '64bbed',
+    ctech: 'ffc01f',
+    kellogg: '0d78bb'
 };
 
 /*
