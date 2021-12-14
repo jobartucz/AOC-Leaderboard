@@ -241,7 +241,6 @@ function renderTeamSection(members, sectionElement) {
             school: schoolList.join('/')
         });
         const spans = element.querySelectorAll('span');
-        console.log(mixRGB(colorList));
         spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});`;
         renderedTeams++;
         sectionElement.appendChild(element);
