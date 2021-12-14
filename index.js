@@ -8,6 +8,14 @@ const FORMAT = '%PLACE) %SCORE %STARS %NAME (%SCHOOL)';
 const PATHTOINDIVIDUALDATA = 'https://saturn.rochesterschools.org/python/AOCbot/data_file.json';
 const PATHTOTEAMS = 'https://saturn.rochesterschools.org/python/AOCbot/team_file.json';
 const PATHTOCSV = 'https://saturn.rochesterschools.org/python/AOCbot/users.json';
+const SCHOOLTOCOLOR = {
+    mayo: '00ff00',
+    jm: 'cb2026',
+    century: '0000ff',
+    lincoln: '3d93d3',
+    ctech: 'fdb116',
+    kellogg: '345fa3'
+};
 
 /*
     let Initlilzation
@@ -84,6 +92,20 @@ window.addEventListener('load', async event => {
     } catch (e) {
         console.log('Statistics Section failed to render\n', e);
     }
+
+    /*
+        Easter Egg
+    */
+
+    const mainTitle = document.querySelector('h2');
+    const title = mainTitle.innerText;
+    mainTitle.addEventListener('click', () => {
+        if (mainTitle.innerText != title) return;
+        mainTitle.innerText = 'Made by github.com/KennyHarrer 👺';
+        setTimeout(() => {
+            mainTitle.innerText = title;
+        }, 2000);
+    });
 });
 
 /*
@@ -97,6 +119,12 @@ function renderIndividualSection(members, sectionElement) {
         let name = AOCUsername;
         let school = '?';
         if (CSVData[AOCUsername]) {
+            if (
+                CSVData[AOCUsername][
+                    `Are you participating as part of a team or as an individual?`
+                ] == 'Team'
+            )
+                continue;
             name = CSVData[AOCUsername][`What is your first and last name?`];
             school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
@@ -128,9 +156,10 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const starCount = schoolData[schoolName].stars;
         const playerCount = schoolData[schoolName].participants;
         const school = document.createElement('div');
+        const efficiency = (starCount / playerCount).toFixed(1);
         school.classList.add(schoolName, "person");
         school.innerText =
-            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, "0")}${STAR} Participants: ${playerCount.toString().padStart(2, "0")}`;
+            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, "0")}${STAR} Participants: ${playerCount.toString().padStart(2, "0")} Efficiency: ${efficiency}`;
         sectionElement.appendChild(school);
     }
 }
@@ -152,7 +181,7 @@ function renderTeamSection(members, sectionElement) {
                 ] != 'Team'
             )
                 continue;
-            const school = CSVData[AOCUsername][`Which school do you attend?`].trim();
+            var school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
 
                 Statistics
@@ -161,24 +190,49 @@ function renderTeamSection(members, sectionElement) {
             if (!schoolData[school]) schoolData[school] = {}; // ensure this school's object exists
             if (!schoolData[school].participants) schoolData[school].participants = 0; //ensure this school's participant count exists
             schoolData[school].participants++; //count
-            if (!schoolData[school].stars) schoolData[school].stars = 0; //ensure this school's star count exists
-            schoolData[school].stars += person.stars;
             name = CSVData[AOCUsername][`What is your team name?`].trim();
+
             if (highestGroups[name]) continue;
+            /*
+                Code past this point is only executed if this is the first person we have found in this group
+            */
+
             highestGroups[name] = true;
             for (participant of Object.values(CSVData)) {
+                //shut up
                 if (participant[`What is your team name?`].trim() == name) {
-                    skhools.push(school);
+                    school = participant[`Which school do you attend?`].trim();
+                    schools[school] = (schools[school] ? schools[school] : 0) + 1;
+                    totalTeamMembers += 1;
                 }
             }
         }
+        /*
+            add stars to school
+        */
+        var schoolList = [];
+        var colorList = [];
+        for (schoolName of Object.keys(schools)) {
+            const numberOfPeople = schools[schoolName];
+            for (i = 0; i < numberOfPeople; i++) {
+                schoolList.push(schoolName);
+            }
+            const ratio = numberOfPeople / totalTeamMembers;
+            if (!schoolData[schoolName].stars) schoolData[schoolName].stars = 0; //ensure this school's star count exists
+            colorList.push([...hexToRGB(SCHOOLTOCOLOR[schoolName.toLowerCase()]), ratio]);
+
+            schoolData[schoolName].stars += person.stars * ratio;
+        }
+
         const element = createPerson({
             name: name,
             place: renderedTeams + 1,
             score: person.local_score,
             stars: person.stars,
-            school: skhools.join('/')
+            school: schoolList.join('/')
         });
+        const spans = element.querySelectorAll('span');
+        spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});`;
         renderedTeams++;
         sectionElement.appendChild(element);
     }
@@ -273,11 +327,34 @@ function createPerson({ name, place, score, stars, school }) {
 
     const secondHalf = document.createElement('span');
     secondHalf.innerText = ' ' + name + ' (' + school + ')';
-    if(school){
+    if (school) {
         secondHalf.classList.add(school);
     }
 
     person.appendChild(secondHalf);
 
     return person;
+}
+
+/*
+    Color mixing
+*/
+
+function hexToRGB(hex) {
+    var aRgbHex = hex.match(/.{1,2}/g);
+    var aRgb = [parseInt(aRgbHex[0], 16), parseInt(aRgbHex[1], 16), parseInt(aRgbHex[2], 16)];
+    return aRgb;
+}
+
+function mixRGB(rgbs) {
+    //sum of all ratios must add up to 1
+    var r = 0;
+    var g = 0;
+    var b = 0;
+    for ([red, green, blue, ratio] of rgbs) {
+        r += red * ratio;
+        g += green * ratio;
+        b += blue * ratio;
+    }
+    return [r, g, b];
 }
