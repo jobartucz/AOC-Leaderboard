@@ -8,6 +8,14 @@ const FORMAT = '%PLACE) %SCORE %STARS %NAME (%SCHOOL)';
 const PATHTOINDIVIDUALDATA = 'https://saturn.rochesterschools.org/python/AOCbot/data_file.json';
 const PATHTOTEAMS = 'https://saturn.rochesterschools.org/python/AOCbot/team_file.json';
 const PATHTOCSV = 'https://saturn.rochesterschools.org/python/AOCbot/users.json';
+const SCHOOLTOCOLOR = {
+    mayo: '00ff00',
+    jm: 'cb2026',
+    century: '0000ff',
+    lincoln: '3d93d3',
+    ctech: 'fdb116',
+    kellogg: '345fa3'
+};
 
 /*
     Var Initlilzation
@@ -135,7 +143,7 @@ function renderIndividualSection(members, sectionElement) {
             place: +index + 1, //cast index to number, arrays start at 0 add 1
             score: person.local_score,
             stars: person.stars,
-            school: school,
+            school: school
         });
         sectionElement.appendChild(element);
     }
@@ -149,7 +157,8 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const school = document.createElement('person');
         const efficiency = (starCount / playerCount).toFixed(1);
         school.classList.add(schoolName);
-        school.innerText = +i +
+        school.innerText =
+            +i +
             1 +
             ') ' +
             schoolName +
@@ -211,6 +220,7 @@ function renderTeamSection(members, sectionElement) {
             add stars to school
         */
         var schoolList = [];
+        var colorList = [];
         for (schoolName of Object.keys(schools)) {
             const numberOfPeople = schools[schoolName];
             for (i = 0; i < numberOfPeople; i++) {
@@ -218,17 +228,21 @@ function renderTeamSection(members, sectionElement) {
             }
             const ratio = numberOfPeople / totalTeamMembers;
             if (!schoolData[schoolName].stars) schoolData[schoolName].stars = 0; //ensure this school's star count exists
+            colorList.push([...hexToRGB(SCHOOLTOCOLOR[schoolName.toLowerCase()]), ratio]);
+
             schoolData[schoolName].stars += person.stars * ratio;
         }
-        console.log(schools);
 
         const element = createPerson({
             name: name,
             place: renderedTeams + 1,
             score: person.local_score,
             stars: person.stars,
-            school: schoolList.join('/'),
+            school: schoolList.join('/')
         });
+        const spans = element.querySelectorAll('span');
+        console.log(mixRGB(colorList));
+        spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});`;
         renderedTeams++;
         sectionElement.appendChild(element);
     }
@@ -322,4 +336,27 @@ function createPerson({ name, place, score, stars, school }) {
     person.appendChild(secondHalf);
 
     return person;
+}
+
+/*
+    Color mixing
+*/
+
+function hexToRGB(hex) {
+    var aRgbHex = hex.match(/.{1,2}/g);
+    var aRgb = [parseInt(aRgbHex[0], 16), parseInt(aRgbHex[1], 16), parseInt(aRgbHex[2], 16)];
+    return aRgb;
+}
+
+function mixRGB(rgbs) {
+    //sum of all ratios must add up to 1
+    var r = 0;
+    var g = 0;
+    var b = 0;
+    for ([red, green, blue, ratio] of rgbs) {
+        r += red * ratio;
+        g += green * ratio;
+        b += blue * ratio;
+    }
+    return [r, g, b];
 }
