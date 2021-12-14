@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 body {
     color: white;
-    background: url("/snow.jpg") no-repeat center center fixed, #000000;
-    background-size: cover;
+    /* background: url("/snow.jpg") no-repeat center center fixed, #000000; */
+    background: #0f0f23;
+    /* background-size: cover; */
     font-family: 'Source Code Pro', monospace;
     font-size: 15px;
 }
@@ -14,7 +15,7 @@ main {
     width: 100vw;
     height: 100vh;
     overflow: auto;
-    background: rgba(0, 0, 0, 0.8);
+    /* background: rgba(0, 0, 0, 0.8); */
 }
 
 h1 {
