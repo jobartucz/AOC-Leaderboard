@@ -101,7 +101,7 @@ window.addEventListener('load', async event => {
     const title = mainTitle.innerText;
     mainTitle.addEventListener('click', () => {
         if (mainTitle.innerText != title) return;
-        mainTitle.innerText = 'Made by github.com/KennyHarrer 👺';
+        mainTitle.innerText = 'Made by github.com/KennyHarrer and github.com/cursorweb 👺';
         setTimeout(() => {
             mainTitle.innerText = title;
         }, 2000);
