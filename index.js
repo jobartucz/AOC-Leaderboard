@@ -159,7 +159,7 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const efficiency = (starCount / playerCount).toFixed(1);
         school.classList.add(schoolName, "person");
         school.innerText =
-            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, "0")}${STAR} Participants: ${playerCount.toString().padStart(2, "0")} Efficiency: ${efficiency}`;
+            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, " ")}${STAR} Participants: ${playerCount.toString().padStart(2, " ")} Efficiency: ${efficiency}`;
         sectionElement.appendChild(school);
     }
 }
@@ -307,7 +307,7 @@ function createPerson({ name, place, score, stars, school }) {
     const spaces = 2 - `${place}`.length;
     const scorespaces = 4 - `${score}`.length;
     const firstHalf = document.createTextNode(
-        '0'.repeat(spaces) + place + ') ' + '0'.repeat(scorespaces) + score + ' '
+        ' '.repeat(spaces) + place + ') ' + ' '.repeat(scorespaces) + score + ' '
     );
     person.appendChild(firstHalf);
 
