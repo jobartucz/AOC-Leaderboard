@@ -172,7 +172,8 @@ function renderTeamSection(members, sectionElement) {
         if (person.stars <= 0) continue;
         const AOCUsername = person.name;
         let name = AOCUsername;
-        let skhools = [];
+        let schools = [];
+        let totalTeamMembers = 0;
 
         if (CSVData[AOCUsername]) {
             if (
@@ -181,7 +182,8 @@ function renderTeamSection(members, sectionElement) {
                 ] != 'Team'
             )
                 continue;
-            var school = CSVData[AOCUsername][`Which school do you attend?`].trim();
+            
+            let school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
 
                 Statistics
@@ -199,7 +201,6 @@ function renderTeamSection(members, sectionElement) {
 
             highestGroups[name] = true;
             for (participant of Object.values(CSVData)) {
-                //shut up
                 if (participant[`What is your team name?`].trim() == name) {
                     school = participant[`Which school do you attend?`].trim();
                     schools[school] = (schools[school] ? schools[school] : 0) + 1;
