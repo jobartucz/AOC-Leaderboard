@@ -4,6 +4,7 @@ body {
     background: url("/snow.jpg") no-repeat center center fixed, #000000;
     background-size: cover;
     font-family: 'Source Code Pro', monospace;
+    font-size: 15px;
 }
 
 main {
@@ -17,12 +18,14 @@ main {
 }
 
 h1 {
+    font-size: 15px;
     font-weight: bolder;
     color: rgb(117, 193, 255);
     text-shadow: 0 0 8px rgb(117, 193, 255);
 }
 
 h2 {
+    font-size: 15px;
     font-weight: bolder;
     margin: 8px 0;
     text-shadow: 0 0 4px rgb(255, 255, 255);
