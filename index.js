@@ -19,7 +19,8 @@ const SCHOOLTOCOLOR = {
 const NAMETOVIDEO = {
     'Mr. Bartucz': 'rickroll.mp4',
     'Kenneth Harrer': 'iwontletugo.mp4',
-    CODINGBEASTS: 'puterhasvirus.mp4'
+    CODINGBEASTS: 'puterhasvirus.mp4',
+    Century: 'panthers.mp4'
 };
 
 /*
@@ -80,9 +81,7 @@ window.addEventListener('load', async event => {
             .querySelector(`section[name="schools"]`)
             .querySelector('div');
         let schoolNames = Object.keys(schoolData);
-        console.log(schoolNames);
         schoolNames.sort((a, b) => schoolData[b].stars - schoolData[a].stars);
-        console.log(schoolNames);
         renderSchoolSection(schoolNames, schoolSectionElement);
     } catch (e) {
         console.log('School Section failed to render\n', e);
@@ -178,6 +177,11 @@ function renderSchoolSection(schoolNames, sectionElement) {
             .padStart(3, ' ')}${STAR} Participants: ${playerCount
             .toString()
             .padStart(2, ' ')} Efficiency: ${efficiency}`;
+        if (NAMETOVIDEO[schoolName]) {
+            school.addEventListener('click', () => {
+                playVideo(NAMETOVIDEO[schoolName]);
+            });
+        }
         sectionElement.appendChild(school);
     }
 }
