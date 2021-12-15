@@ -16,9 +16,10 @@ const SCHOOLTOCOLOR = {
     ctech: 'ffc01f',
     kellogg: '0d78bb'
 };
-const NAMETOFUNCTION = {
-    'Mr. Bartucz': rickRoll,
-    'Kenneth Harrer': iWontLetUGo
+const NAMETOVIDEO = {
+    'Mr. Bartucz': 'rickroll.mp4',
+    'Kenneth Harrer': 'iwontletugo.mp4',
+    CODINGBEASTS: 'puterhasvirus.mp4'
 };
 
 /*
@@ -152,8 +153,10 @@ function renderIndividualSection(members, sectionElement) {
             stars: person.stars,
             school: school
         });
-        if (NAMETOFUNCTION[name]) {
-            element.addEventListener('click', NAMETOFUNCTION[name]);
+        if (NAMETOVIDEO[name]) {
+            element.addEventListener('click', () => {
+                playVideo(NAMETOVIDEO[name]);
+            });
         }
         sectionElement.appendChild(element);
     }
@@ -247,6 +250,11 @@ function renderTeamSection(members, sectionElement) {
             stars: person.stars,
             school: schoolList.join('/')
         });
+        if (NAMETOVIDEO[name]) {
+            element.addEventListener('click', () => {
+                playVideo(NAMETOVIDEO[name]);
+            });
+        }
         const spans = element.querySelectorAll('span');
         spans[spans.length - 1].style = `color: rgb(${mixRGB(colorList)});
 text-shadow: 0 0 4px rgb(${mixRGB(colorList)})`;
@@ -357,24 +365,11 @@ function createPerson({ name, place, score, stars, school }) {
     More Easter Eggs
 */
 
-function iWontLetUGo() {
+function playVideo(url) {
+    if (document.querySelector('video')) return;
     const video = document.createElement('video');
     video.style = 'display: none;';
-    video.src = 'iwontletugo.mp4';
-    video.addEventListener('ended', () => {
-        video.remove();
-    });
-    video.addEventListener('playing', () => {
-        video.style = 'display: block;';
-    });
-    video.play();
-    document.querySelector('main').appendChild(video);
-}
-
-function rickRoll() {
-    const video = document.createElement('video');
-    video.style = 'display: none;';
-    video.src = 'rickroll.mp4';
+    video.src = url;
     video.addEventListener('ended', () => {
         video.remove();
     });
