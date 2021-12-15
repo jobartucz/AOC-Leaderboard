@@ -97,7 +97,7 @@ window.addEventListener('load', async event => {
         Easter Egg
     */
 
-    const mainTitle = document.querySelector('h2');
+    const mainTitle = document.querySelector('h1');
     const title = mainTitle.innerText;
     mainTitle.addEventListener('click', () => {
         if (mainTitle.innerText != title) return;
@@ -157,9 +157,14 @@ function renderSchoolSection(schoolNames, sectionElement) {
         const playerCount = schoolData[schoolName].participants;
         const school = document.createElement('div');
         const efficiency = (starCount / playerCount).toFixed(1);
-        school.classList.add(schoolName, "person");
-        school.innerText =
-            `${i + 1}) ${schoolName} ${' '.repeat(maxSchool - schoolName.length)} ${STAR}Total Stars: ${starCount.toString().padStart(3, " ")}${STAR} Participants: ${playerCount.toString().padStart(2, " ")} Efficiency: ${efficiency}`;
+        school.classList.add(schoolName, 'person');
+        school.innerText = `${i + 1}) ${schoolName} ${' '.repeat(
+            maxSchool - schoolName.length
+        )} ${STAR}Total Stars: ${starCount
+            .toString()
+            .padStart(3, ' ')}${STAR} Participants: ${playerCount
+            .toString()
+            .padStart(2, ' ')} Efficiency: ${efficiency}`;
         sectionElement.appendChild(school);
     }
 }
@@ -182,7 +187,7 @@ function renderTeamSection(members, sectionElement) {
                 ] != 'Team'
             )
                 continue;
-            
+
             let school = CSVData[AOCUsername][`Which school do you attend?`].trim();
             /*
 
@@ -255,12 +260,12 @@ function renderStats(sectionElement) {
     //total players
     const totalPlayersElement = document.createElement('div');
     totalPlayersElement.innerText = 'Total Participants: ' + totalParticipants;
-    totalPlayersElement.classList.add("stat");
+    totalPlayersElement.classList.add('stat');
     sectionElement.appendChild(totalPlayersElement);
     //total stars
     const totalStarsElement = document.createElement('div');
     totalStarsElement.innerText = 'Total Stars: ' + totalStars;
-    totalStarsElement.classList.add("stat");
+    totalStarsElement.classList.add('stat');
     sectionElement.appendChild(totalStarsElement);
 
     /*
@@ -270,7 +275,7 @@ function renderStats(sectionElement) {
 
     const TTE = document.createElement('div');
     TTE.setAttribute('id', 'TTE');
-    TTE.classList.add("person");
+    TTE.classList.add('person');
     function init() {
         // Get today's date and time
         let now = new Date().getTime();
@@ -298,13 +303,13 @@ function renderStats(sectionElement) {
     let x = setInterval(init, 1000);
 
     init();
-    
+
     sectionElement.appendChild(TTE);
 }
 
 function createPerson({ name, place, score, stars, school }) {
     const person = document.createElement('div');
-    person.classList.add("person");
+    person.classList.add('person');
     const spaces = 2 - `${place}`.length;
     const scorespaces = 4 - `${score}`.length;
     const firstHalf = document.createTextNode(
