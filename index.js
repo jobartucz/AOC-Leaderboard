@@ -16,6 +16,10 @@ const SCHOOLTOCOLOR = {
     ctech: 'ffc01f',
     kellogg: '0d78bb'
 };
+const NAMETOFUNCTION = {
+    'Mr. Bartucz': rickRoll,
+    'Kenneth Harrer': iWontLetUGo
+};
 
 /*
     let Initlilzation
@@ -101,7 +105,8 @@ window.addEventListener('load', async event => {
     const title = mainTitle.innerText;
     mainTitle.addEventListener('click', () => {
         if (mainTitle.innerText != title) return;
-        mainTitle.innerText = 'Made by github.com/KennyHarrer and github.com/cursorweb 👺';
+        mainTitle.innerText =
+            'Made by github.com/KennyHarrer with help from github.com/cursorweb 👺';
         setTimeout(() => {
             mainTitle.innerText = title;
         }, 2000);
@@ -145,6 +150,9 @@ function renderIndividualSection(members, sectionElement) {
             stars: person.stars,
             school: school
         });
+        if (NAMETOFUNCTION[name]) {
+            element.addEventListener('click', NAMETOFUNCTION[name]);
+        }
         sectionElement.appendChild(element);
     }
 }
@@ -341,6 +349,38 @@ function createPerson({ name, place, score, stars, school }) {
     person.appendChild(secondHalf);
 
     return person;
+}
+
+/*
+    More Easter Eggs
+*/
+
+function iWontLetUGo() {
+    const video = document.createElement('video');
+    video.style = 'display: none;';
+    video.src = 'iwontletugo.mp4';
+    video.addEventListener('ended', () => {
+        video.remove();
+    });
+    video.addEventListener('playing', () => {
+        video.style = 'display: block;';
+    });
+    video.play();
+    document.querySelector('main').appendChild(video);
+}
+
+function rickRoll() {
+    const video = document.createElement('video');
+    video.style = 'display: none;';
+    video.src = 'rickroll.mp4';
+    video.addEventListener('ended', () => {
+        video.remove();
+    });
+    video.addEventListener('playing', () => {
+        video.style = 'display: block;';
+    });
+    video.play();
+    document.querySelector('main').appendChild(video);
 }
 
 /*
