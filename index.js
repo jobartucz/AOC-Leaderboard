@@ -79,7 +79,9 @@ window.addEventListener('load', async event => {
             .querySelector(`section[name="schools"]`)
             .querySelector('div');
         let schoolNames = Object.keys(schoolData);
+        console.log(schoolNames);
         schoolNames.sort((a, b) => schoolData[b].stars - schoolData[a].stars);
+        console.log(schoolNames);
         renderSchoolSection(schoolNames, schoolSectionElement);
     } catch (e) {
         console.log('School Section failed to render\n', e);
@@ -158,7 +160,7 @@ function renderIndividualSection(members, sectionElement) {
 }
 
 function renderSchoolSection(schoolNames, sectionElement) {
-    const maxSchool = schoolNames.sort((a, b) => b.length - a.length)[0].length;
+    const maxSchool = [...schoolNames].sort((a, b) => b.length - a.length)[0].length;
     for (i = 0; i < schoolNames.length; i++) {
         const schoolName = schoolNames[i];
         const starCount = schoolData[schoolName].stars;
