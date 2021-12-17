@@ -11,7 +11,7 @@ const PATHTOCSV = 'https://saturn.rochesterschools.org/python/AOCbot/users.json'
 const SCHOOLTOCOLOR = {
     mayo: '1a743a',
     jm: 'cb2026',
-    century: '837ec5',
+    century: 'ff9ff3',
     lincoln: '64bbed',
     ctech: 'ffc01f',
     kellogg: '0d78bb'
