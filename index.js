@@ -20,7 +20,10 @@ const NAMETOVIDEO = {
     'Mr. Bartucz': 'rickroll.mp4',
     'Kenneth Harrer': 'iwontletugo.mp4',
     CODINGBEASTS: 'puterhasvirus.mp4',
-    Century: 'panthers.mp4'
+    Century: 'panthers.mp4',
+    Mayo: 'mayo.mp4',
+    JM: 'rocketship.mp4',
+    CTECH: 'jazz.mp4'
 };
 
 /*
