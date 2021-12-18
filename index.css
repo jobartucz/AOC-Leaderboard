@@ -95,6 +95,27 @@ main {
     white-space: pre;
 }
 
+.additionalInfo {
+    display: none;
+    position: relative;
+    flex-grow: 1;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.info {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    padding: 2.5px;
+    box-sizing: border-box;
+}
+
+.person:hover > .additionalInfo {
+    display: flex;
+}
+
 .person:hover, .stat:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);

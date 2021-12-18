@@ -111,6 +111,8 @@ window.addEventListener('load', async event => {
     let listSchools = {};
     let nameInformation = { team: {}, individual: {} };
     let teamColors = {};
+    let teamMembers = {};
+    let additionalInfoOBJ = {};
     //find spacing data, then generate elements
     const combined = [...individualData, ...teamData].sort(
         (a, b) => b.stars - a.stars || b.local_score - a.local_score
@@ -149,6 +151,19 @@ window.addEventListener('load', async event => {
             for (participant of Object.values(CSVData)) {
                 if (participant[`What is your team name?`].trim() == teamName) {
                     tschool = participant[`Which school do you attend?`].trim();
+                    teamMembers[teamName] = teamMembers[teamName] || [];
+                    teamMembers[teamName].push({
+                        name: participant[`What is your first and last name?`],
+                        discord:
+                            participant[
+                                `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
+                            ],
+                        language: participant[`Which programming language do you plan on using?`],
+                        username:
+                            participant[
+                                `What is your Advent of Code Username? (Make sure you are logged in to see it!)`
+                            ]
+                    });
                     schools[tschool] = (schools[tschool] ? schools[tschool] : 0) + 1;
                     totalTeamMembers += 1;
                 }
@@ -178,6 +193,17 @@ window.addEventListener('load', async event => {
         } else {
             if (listNames[username]) continue;
             listNames[username] = name;
+            additionalInfoOBJ[username] = {
+                username:
+                    CSVData[username][
+                        `What is your Advent of Code Username? (Make sure you are logged in to see it!)`
+                    ],
+                discord:
+                    CSVData[username][
+                        `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
+                    ],
+                language: CSVData[username][`Which programming language do you plan on using?`]
+            };
             listSchools[username] = '(' + school + ')';
             schoolData[school] = schoolData[school] || {};
             schoolData[school].stars = (schoolData[school].stars || 0) + stars;
@@ -224,6 +250,24 @@ text-shadow: 0 0 4px rgb(${teamColor})`;
             });
         }
         div.appendChild(span);
+        div.appendChild(document.createElement('br'));
+        const additionalInfo = document.createElement('div');
+        additionalInfo.classList.add('additionalInfo');
+
+        for (teamMember of teamMembers[name.trim()]) {
+            const infoSpan = document.createElement('span');
+            infoSpan.classList.add('info');
+            infoSpan.innerText =
+                'Name: ' +
+                teamMember.name +
+                ' Discord: ' +
+                (teamMember.discord || 'n/a') +
+                ' Languaged Used: ' +
+                teamMember.language;
+            additionalInfo.appendChild(infoSpan);
+        }
+
+        div.appendChild(additionalInfo);
         teamSectionElement.appendChild(div);
     }
 
@@ -251,6 +295,35 @@ text-shadow: 0 0 4px rgb(${teamColor})`;
                 playVideo(NAMETOVIDEO[name.trim()]);
             });
         }
+
+        const inf = additionalInfoOBJ[individual];
+
+        const disc = inf.discord;
+        const user = inf.username;
+        const lang = inf.language;
+
+        const additionalInfo = document.createElement('div');
+        additionalInfo.classList.add('additionalInfo');
+
+        const aocUsername = document.createElement('span');
+        aocUsername.classList.add('info');
+        aocUsername.innerText = 'AOC Username: ' + user;
+        additionalInfo.appendChild(aocUsername);
+
+        const discord = document.createElement('span');
+        discord.classList.add('info');
+        discord.innerText = 'Discord: ' + (disc.length > 1 ? disc : 'n/a');
+        console.log(disc);
+        additionalInfo.appendChild(discord);
+
+        const language = document.createElement('span');
+        language.classList.add('info');
+        language.innerText = 'Language Used: ' + lang || 'n/a';
+        additionalInfo.appendChild(language);
+
+        //additionalInfo.innerText = 'here is some more info';
+
+        div.appendChild(additionalInfo);
         individualSectionElement.appendChild(div);
     }
 
