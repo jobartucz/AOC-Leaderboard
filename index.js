@@ -260,9 +260,9 @@ text-shadow: 0 0 4px rgb(${teamColor})`;
             infoSpan.innerText =
                 'Name: ' +
                 teamMember.name +
-                ' Discord: ' +
+                '  Discord: ' +
                 (teamMember.discord || 'n/a') +
-                ' Languaged Used: ' +
+                '  Languaged Used: ' +
                 teamMember.language;
             additionalInfo.appendChild(infoSpan);
         }
