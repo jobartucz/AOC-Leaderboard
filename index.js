@@ -113,6 +113,7 @@ window.addEventListener('load', async event => {
     let teamColors = {};
     let teamMembers = {};
     let additionalInfoOBJ = {};
+    let iDontKnowWhatToCallThis = {};
     //find spacing data, then generate elements
     const combined = [...individualData, ...teamData].sort(
         (a, b) => b.stars - a.stars || b.local_score - a.local_score
@@ -135,8 +136,11 @@ window.addEventListener('load', async event => {
         }
 
         if (!highestScore) highestScore = score;
+        console.log(individual, Object.keys(rankingsAndScores[teamOrIndividualKey]).length + 1);
+        iDontKnowWhatToCallThis[teamOrIndividualKey] =
+            iDontKnowWhatToCallThis[teamOrIndividualKey] + 1 || 1;
         rankingsAndScores[teamOrIndividualKey][username] = [
-            (Object.keys(rankingsAndScores[teamOrIndividualKey]).length + 1)
+            iDontKnowWhatToCallThis[teamOrIndividualKey]
                 .toString()
                 .padStart(combined.length.toString().length) + ')',
             score.toString().padStart(highestScore.toString().length + 1) + ' '
@@ -194,10 +198,7 @@ window.addEventListener('load', async event => {
             if (listNames[username]) continue;
             listNames[username] = name;
             additionalInfoOBJ[username] = {
-                username:
-                    CSVData[username][
-                        `What is your Advent of Code Username? (Make sure you are logged in to see it!)`
-                    ],
+                username: username,
                 discord:
                     CSVData[username][
                         `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
@@ -313,7 +314,6 @@ text-shadow: 0 0 4px rgb(${teamColor})`;
         const discord = document.createElement('span');
         discord.classList.add('info');
         discord.innerText = 'Discord: ' + (disc.length > 1 ? disc : 'n/a');
-        console.log(disc);
         additionalInfo.appendChild(discord);
 
         const language = document.createElement('span');
