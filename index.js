@@ -115,6 +115,14 @@ window.addEventListener('load', async event => {
     let additionalInfoOBJ = {};
     let iDontKnowWhatToCallThis = {};
     //find spacing data, then generate elements
+    var newTD = [];
+    for (i = 0; i < teamData.length; i++) {
+        const username = teamData[i].username;
+        if (teamOrIndividual(username)) {
+            newTD.push(teamData[i]);
+        }
+    }
+    teamData = newTD;
     const combined = [...individualData, ...teamData].sort(
         (a, b) => b.stars - a.stars || b.local_score - a.local_score
     );
@@ -130,6 +138,7 @@ window.addEventListener('load', async event => {
         const teamOrIndividualKey = team ? 'team' : 'individual';
         if (team == undefined) continue;
         if (score == 0) continue;
+        console.log(individual);
         if (team) {
             if (hasTeamRendered[teamName]) continue;
             hasTeamRendered[teamName] = true;
