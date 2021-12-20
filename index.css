@@ -49,7 +49,6 @@ section {
     user-select: none;
 }
 
-
 .Century {
     color: #ff9ff3;
     text-shadow: 0 0 4px #ff9ff3;
@@ -86,7 +85,8 @@ main {
     align-items: center;
 }
 
-.person, .stat {
+.person,
+.stat {
     display: block;
     padding: 4px;
     border-radius: 8px;
@@ -112,11 +112,12 @@ main {
     box-sizing: border-box;
 }
 
-.person:hover > .additionalInfo {
+.person:hover>.additionalInfo {
     display: flex;
 }
 
-.person:hover, .stat:hover {
+.person:hover,
+.stat:hover {
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
@@ -133,5 +134,5 @@ video {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
