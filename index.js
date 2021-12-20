@@ -489,17 +489,13 @@ function sleep(ms) {
 }
 
 async function mrDirks() {
-    const main = document.querySelector('section[name="individual"]');
+    const main = document.querySelector('main');
     const times = 20;
     const lasts = 0.4;
     for (i = 0; i < times; i++) {
-        for (child of main.children) {
-            child.style = 'font-size: 2.5em;';
-        }
+        main.style = 'font-size: 2.5em;';
         await sleep(lasts / 2 * 1000);
-        for (child of main.children) {
-            child.removeAttribute('style');
-        }
+        main.removeAttribute('style');
         await sleep(lasts / 2 * 1000);
     }
 }
