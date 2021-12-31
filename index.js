@@ -117,7 +117,7 @@ window.addEventListener('load', async event => {
     //find spacing data, then generate elements
     var newTD = [];
     for (i = 0; i < teamData.length; i++) {
-        const username = teamData[i].username;
+        const username = teamData[i].name;
         if (teamOrIndividual(username)) {
             newTD.push(teamData[i]);
         }
@@ -138,19 +138,17 @@ window.addEventListener('load', async event => {
         const teamOrIndividualKey = team ? 'team' : 'individual';
         if (team == undefined) continue;
         if (score == 0) continue;
-        console.log(individual);
         if (team) {
             if (hasTeamRendered[teamName]) continue;
             hasTeamRendered[teamName] = true;
         }
-
         if (!highestScore) highestScore = score;
         iDontKnowWhatToCallThis[teamOrIndividualKey] =
             iDontKnowWhatToCallThis[teamOrIndividualKey] + 1 || 1;
         rankingsAndScores[teamOrIndividualKey][username] = [
             iDontKnowWhatToCallThis[teamOrIndividualKey]
-            .toString()
-            .padStart(combined.length.toString().length) + ')',
+                .toString()
+                .padStart(combined.length.toString().length) + ')',
             score.toString().padStart(highestScore.toString().length + 1) + ' '
         ];
         starInformation[teamOrIndividualKey][username] = generateStars(individual.stars);
@@ -166,13 +164,15 @@ window.addEventListener('load', async event => {
                     teamMembers[teamName] = teamMembers[teamName] || [];
                     teamMembers[teamName].push({
                         name: participant[`What is your first and last name?`],
-                        discord: participant[
-                            `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
-                        ],
+                        discord:
+                            participant[
+                                `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
+                            ],
                         language: participant[`Which programming language do you plan on using?`],
-                        username: participant[
-                            `What is your Advent of Code Username? (Make sure you are logged in to see it!)`
-                        ]
+                        username:
+                            participant[
+                                `What is your Advent of Code Username? (Make sure you are logged in to see it!)`
+                            ]
                     });
                     schools[tschool] = (schools[tschool] ? schools[tschool] : 0) + 1;
                     totalTeamMembers += 1;
@@ -205,9 +205,10 @@ window.addEventListener('load', async event => {
             listNames[username] = name;
             additionalInfoOBJ[username] = {
                 username: username,
-                discord: CSVData[username][
-                    `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
-                ],
+                discord:
+                    CSVData[username][
+                        `If you are participating in the RCC Discord server, you will be automatically added to specific channels when you complete stars. You can join here: https://discord.gg/hsN92V4  - Please enter your Discord username so we can verify you.`
+                    ],
                 language: CSVData[username][`Which programming language do you plan on using?`]
             };
             listSchools[username] = '(' + school + ')';
